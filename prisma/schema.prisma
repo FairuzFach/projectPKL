@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  username String
+  email    String   @unique
+  password String
+  arsips   Arsip[]  @relation("userToArsip")
+}
+
+model Arsip {
+  id       Int      @id @default(autoincrement())
+  title    String
+  content  String
+  userId   Int
+  user     User     @relation("userToArsip", fields: [userId], references: [id])
+}
