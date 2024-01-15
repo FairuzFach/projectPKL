@@ -11,7 +11,7 @@ const DashboardPage = () => {
 
   return (
     <div className="flex">
-    {/* <CustomSidebar/> */}
+    <CustomSidebar/>
       <div className="flex-1">
         <div className="bg-white p-8 shadow-md rounded-md">
           <h1 className="text-3xl font-bold mb-4">Dashboard Page</h1>

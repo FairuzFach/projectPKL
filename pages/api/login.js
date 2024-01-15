@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { username, password } = req.body;
 
-    // Lakukan validasi login berdasarkan username dan password dari database
+    // VALIDASI LOGIN BERDASARKAN USER DARI DATABASE
     const user = await prisma.user.findFirst({
       where: {
         username: username,

@@ -6,7 +6,9 @@
     "start": "next start -p 80"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.1",
     "@prisma/client": "^5.7.1",
+    "@vercel/postgres": "^0.5.1",
     "autoprefixer": "^10.4.16",
     "flowbite-react": "^0.7.2",
     "next": "latest",

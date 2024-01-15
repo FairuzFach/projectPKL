@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- Host:                         localhost
+-- Host:                         127.0.0.1
 -- Server version:               10.4.28-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
--- HeidiSQL Version:             12.4.0.6659
+-- HeidiSQL Version:             12.6.0.6765
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `_prisma_migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table magang._prisma_migrations: ~1 rows (approximately)
+-- Dumping data for table magang._prisma_migrations: ~0 rows (approximately)
 REPLACE INTO `_prisma_migrations` (`id`, `checksum`, `finished_at`, `migration_name`, `logs`, `rolled_back_at`, `started_at`, `applied_steps_count`) VALUES
 	('69f55a7e-c85b-4466-8fc1-24ead82b1085', '915e53ceb42467d0d804a5586a29ea317821eec2eb8cd8c1eea58167d4f826dd', '2023-12-31 10:11:53.827', '20231231101153_31_des', NULL, NULL, '2023-12-31 10:11:53.767', 1);
 
