@@ -48,7 +48,7 @@ const LoginPage = () => {
     <div
       className="min-h-screen flex items-center justify-center"
       style={{
-        backgroundImage: `url("background.png")`,
+        backgroundImage: `url("background.jpg")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

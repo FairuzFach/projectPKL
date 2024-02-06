@@ -20,8 +20,10 @@ model User {
 
 model Arsip {
   id       Int      @id @default(autoincrement())
-  title    String
-  content  String
+  judul    String
+  kategori String
+  file     String
+  tanggalDokumen DateTime   @default(now())
   userId   Int
   user     User     @relation("userToArsip", fields: [userId], references: [id])
 }
