@@ -14,7 +14,11 @@ export default async function handler(req, res) {
     });
 
     if (user) {
+      if (!req.session) {
+        req.session = {};
+      }
       // Berhasil login
+      req.session.user = { username: user.username, namaLengkap: user.namaLengkap, email: user.email };
       res.status(200).json({ success: true, message: 'Login berhasil' });
     } else {
       // Gagal login

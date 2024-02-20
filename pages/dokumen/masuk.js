@@ -1,15 +1,16 @@
-// pages/dokumen/masuk.js
 import { useState } from "react";
 import { useRouter } from "next/router";
 import toast, { Toaster } from 'react-hot-toast';
 import CustomSidebar from "./components/sidebar";
 import axios from 'axios';
+import Footer from "./components/footer";
 
 const DokumenMasuk = () => {
   const router = useRouter();
 
   const [judulDokumen, setJudulDokumen] = useState("");
-  const [kategoriDokumen, setKategoriDokumen] = useState("");
+  const [kategoriDokumen, setKategoriDokumen] = useState("Surat");
+  const [customKategori, setCustomKategori] = useState("");
   const [fileDokumen, setFileDokumen] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -19,8 +20,8 @@ const DokumenMasuk = () => {
     if (!judulDokumen) {
       toast.error("Pilih judul dokumen terlebih dahulu");
       return;
-    } else if (!kategoriDokumen) {
-      toast.error("Pilih kategori dokumen terlebih dahulu");
+    } else if ((!kategoriDokumen || kategoriDokumen === "Custom") && !customKategori) {
+      toast.error("Masukkan kategori dokumen terlebih dahulu");
       return;
     } else if (!fileDokumen) {
       toast.error("Pilih file dokumen terlebih dahulu");
@@ -36,9 +37,11 @@ const DokumenMasuk = () => {
       return;
     }
 
+    const kategori = kategoriDokumen === "Kategori Lain" ? customKategori : kategoriDokumen;
+
     const formData = new FormData();
     formData.append("judulDokumen", judulDokumen);
-    formData.append("kategoriDokumen", kategoriDokumen);
+    formData.append("kategoriDokumen", kategori);
     formData.append("fileDokumen", fileDokumen);
 
     try {
@@ -52,7 +55,6 @@ const DokumenMasuk = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      console.log(formData)
       toast.error("Terjadi kesalahan saat mengirim data");
     }
   };
@@ -93,14 +95,17 @@ const DokumenMasuk = () => {
                 <option value="Dokumentasi">Dokumentasi</option>
                 <option value="Laporan">Laporan</option>
                 <option value="Kartu">Kartu</option>
+                <option value="Kategori Lain">Kategori Lain</option>
               </select>
-              {/* <input
-                placeholder='Masukkan Kategori Dokumen'
-                type="text"
-                value={kategoriDokumen}
-                onChange={(e) => setKategoriDokumen(e.target.value)}
-                className="mt-1 p-2 border rounded-md w-full"
-              /> */}
+              {kategoriDokumen === "Kategori Lain" && (
+                <input
+                  placeholder='Masukkan Kategori Dokumen'
+                  type="text"
+                  value={customKategori}
+                  onChange={(e) => setCustomKategori(e.target.value)}
+                  className="mt-1 p-2 border rounded-md w-full"
+                />
+              )}
             </div>
 
             <div className="mb-4">
@@ -126,6 +131,7 @@ const DokumenMasuk = () => {
             position="top-center"
             reverseOrder={false}
           />
+          <Footer />
         </div>
       </div>
     </div>

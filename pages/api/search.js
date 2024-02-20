@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       where: {
         OR: [
           { judul: { contains: query.toLowerCase() } },
-          { kategori: { contains: query.toLowerCase() } },
+          // { kategori: { contains: query.toLowerCase() } },
         ],
       },
     });

@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     const originalName = path.parse(file.originalname).name;
     const uniqueSuffix = '-' + Date.now() ;
     const fileExt = path.extname(file.originalname);
-    const fileName = originalName + uniqueSuffix + fileExt;
+    const fileName = originalName  + fileExt;
     cb(null, fileName);
   }
 });
@@ -50,9 +50,9 @@ export default async function handler(req, res) {
       }
 
       const originalName = path.parse(req.file.originalname).name;
-      const uniqueSuffix = Date.now() + '-';
+      const uniqueSuffix = '-' + Date.now();
       const fileExt = path.extname(req.file.originalname);
-      const fileName = originalName + '-' + uniqueSuffix + fileExt;
+      const fileName = originalName  + fileExt;
 
       const arsip = await prisma.arsip.create({
         data: {

@@ -1,8 +1,9 @@
-// pages/dokumen/cari.js
+// pages/cari.js
 import { useState } from 'react';
 import CustomSidebar from './components/sidebar';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import Footer from "./components/footer";
 
 const CariDokumen = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,11 +32,10 @@ const CariDokumen = () => {
     return formattedDate;
   };
 
-  const downloadFile = async (file) => {
+  const handleDownload = async (file) => {
     try {
       const response = await axios.get(`/api/download?file=${file}`, { responseType: 'arraybuffer' });
   
-      // Membuat objek URL untuk blob dan membuat tautan download
       const blob = new Blob([response.data]);
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -46,6 +46,48 @@ const CariDokumen = () => {
       document.body.removeChild(link);
     } catch (error) {
       console.error('Error downloading file:', error);
+      toast.success('Berhasil mendownload dokumen');
+      // toast.promise(
+      //   handleDownload(file), {
+      //     loading: 'Downloading...',
+      //     success: <b>Dokumen berhasil di Download</b>,
+      //     error: <b>Dokumen gagal di Download</b>,
+      //   }
+      // );
+    }
+  };
+
+  const handleDelete = async (id) => {
+  toast.promise(
+    new Promise(async (resolve, reject) => {
+      try {
+        const response = await axios.delete(`/api/delete`, {
+          data: { id },
+        });
+
+        if (response.data.status === 'success') {
+          resolve();
+        } else {
+          reject(new Error('Gagal menghapus dokumen'));
+        }
+      } catch (error) {
+        console.error('Error deleting document:', error);
+        reject(new Error('Terjadi kesalahan saat menghapus dokumen'));
+      }
+    }),
+    {
+      loading: 'Menghapus dokumen...',
+      success: <b>Dokumen berhasil dihapus</b>,
+      error: <b>Gagal menghapus dokumen</b>,
+    }
+  );
+};
+
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSearch();
     }
   };
 
@@ -62,6 +104,7 @@ const CariDokumen = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="p-2 border rounded-md flex-1"
+              onKeyPress={handleKeyPress}
             />
             <button
               onClick={handleSearch}
@@ -77,7 +120,7 @@ const CariDokumen = () => {
                 <th className="border p-2">Judul</th>
                 <th className="border p-2">Kategori</th>
                 <th className="border p-2">Tanggal Dokumen</th>
-                {/* <th className="border p-2"></th> */}
+                <th className="border p-2"></th>
               </tr>
             </thead>
             <tbody>
@@ -86,14 +129,22 @@ const CariDokumen = () => {
                   <td className="border p-2 border-black">{result.judul}</td>
                   <td className="border p-2 border-black">{result.kategori}</td>
                   <td className="border p-2 border-black">{formatDate(result.tanggalDokumen)}</td>
-                  {/* <td className="border p-2 border-black">
-                    <button
-                      onClick={() => downloadFile(result.file)}
-                      className="bg-red-500 text-white px-3 py-1 rounded-md"
-                    >
-                      Download
-                    </button>
-                  </td> */}
+                  <td className="border p-2 border-black">
+                    <select
+                     className="p-2 border rounded-md bg-white shadow-md"
+                     onChange={(e) => {
+                      const action = e.target.value;
+                      if (action === 'delete') {
+                        handleDelete(result.id);
+                      } else if (action === 'download') {
+                        handleDownload(result.file);
+                      }
+                    }}>
+                      <option value="">Aksi</option>
+                      <option value="download">Download</option>
+                      <option value="delete">Hapus</option>
+                    </select>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -101,6 +152,7 @@ const CariDokumen = () => {
           ) : (null)}
         </div>
         <Toaster position="top-center" reverseOrder={false} />
+        <Footer />
       </div>
     </div>
   );

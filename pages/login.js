@@ -1,11 +1,12 @@
+// pages/login.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 
 const LoginPage = () => {
   const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('demo');
+  const [password, setPassword] = useState('demo');
 
   const handleLogin = async () => {
     try {

@@ -7,8 +7,8 @@ import { Sidebar } from 'flowbite-react';
 
 const CustomSidebar = () => {
   return (
-    <Sidebar className="bg-red-700 h-screen text-white" aria-label="Sidebar with logo branding example">
-      <Sidebar.Logo href="/dashboard" img="/favicon.ico" imgAlt="logo">
+    <Sidebar className="bg-gradient-to-b from-red-500 to-red-900 h-screen text-white" aria-label="Sidebar with logo branding example">
+      <Sidebar.Logo href="/dashboard" img="/logo482.png" imgAlt="logo" className="text-2xl font-bold">
         E-Archive
       </Sidebar.Logo>
       <Sidebar.Items className="mt-5">
@@ -25,7 +25,7 @@ const CustomSidebar = () => {
           <Sidebar.Item href="/dokumen/cari" icon={HiDocumentSearch} className="mb-2">
             Cari Dokumen
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiMenu} className="mb-2">
+          <Sidebar.Item href="/dokumen/kategori" icon={HiMenu} className="mb-2">
             Kategori
           </Sidebar.Item>
           {/* <Sidebar.Item href="#" icon={HiDocumentReport} className="mb-2">
