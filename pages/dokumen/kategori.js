@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CustomSidebar from "./components/sidebar";
 import Footer from "./components/footer";
 import { PrismaClient } from '@prisma/client';
+import toast, { Toaster } from 'react-hot-toast';
 
 const prisma = new PrismaClient();
 
@@ -39,14 +40,12 @@ const KategoriPage = ({ kategoriDokumen }) => {
               <div key={index} className="mr-4 mb-2">
                 <button 
                   onClick={() => handleSelectKategori(kategori)}
-                  className={`p-2 border rounded-md ${selectedKategori === kategori ? 'bg-gray-300' : ''}`}
-                >
+                  className={`p-2 border rounded-md ${selectedKategori === kategori ? 'bg-gray-300 shadow-md' : 'shadow-sm'}`}>
                   {kategori}
                 </button>
               </div>
             ))}
           </div>
-          {/* List dokumen sesuai dengan kategori yang dipilih */}
           {selectedKategori && (
             <div>
               <p className="text-xl font-bold mb-2">Dokumen {selectedKategori}</p>
@@ -54,15 +53,16 @@ const KategoriPage = ({ kategoriDokumen }) => {
                 {dokumenByKategori.map((dokumen) => (
                   <div key={dokumen.id} className="bg-gray-100 p-4 rounded-md">
                     <h3 className="text-lg font-semibold mb-2">{dokumen.judul}</h3>
-                    <p className="text-gray-600">{dokumen.kategori}</p>
+                    <p className="text-gray-600">Kategori: {dokumen.kategori}</p>
                     <p className="text-gray-600">Tanggal: {formatDate(dokumen.tanggalDokumen)}</p>
-                    {/* Tambahkan tombol atau link untuk men-download atau menampilkan detail dokumen */}
+                    {/* <p className="text-gray-600">Diupload Oleh: </p> */}
                   </div>
                 ))}
               </div>
             </div>
           )}
         </div>
+        <Toaster position="top-center" reverseOrder={false} />
         <Footer />
       </div>
     </div>

@@ -13,6 +13,7 @@
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.7",
     "bcryptjs": "^2.4.3",
+    "chart.js": "^4.4.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "flowbite-react": "^0.7.2",

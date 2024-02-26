@@ -89,7 +89,6 @@ const DokumenMasuk = () => {
                 className="mt-1 p-2 border rounded-md w-full"
               >
                 <option value="Surat">Surat</option>
-                <option value="Akte">Akte</option>
                 <option value="Sertifikat">Sertifikat</option>
                 <option value="Kuitansi">Kuitansi</option>
                 <option value="Dokumentasi">Dokumentasi</option>
